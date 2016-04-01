@@ -46,33 +46,6 @@
             app.initialize();
         </script>
         <script type="text/javascript">
-            document.addEventListener("deviceready",onDeviceReady,false);
-            function onDeviceReady(){
-                console.log("Device Ready")
-                var push = PushNotification.init({ "android": {"senderID": "721393051486"},
-                "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
-
-                push.on('registration', function(data) {
-                console.log(data.registrationId);
-                alert(data.registrationId);
-                $("#gcm_id").html(data.registrationId);
-                });
-
-                push.on('notification', function(data) {
-                console.log(data.message);
-                alert(data.title+" Message: " +data.message);
-                // data.title,
-                // data.count,
-                // data.sound,
-                // data.image,
-                // data.additionalData
-                });
-
-                push.on('error', function(e) {
-                console.log(e.message);
-                alert(e.message);
-                });
-            }
         </script>
     </body>
 </html>
