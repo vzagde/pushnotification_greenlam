@@ -35,12 +35,42 @@
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
+                <h1>Push Notification Example</h1>
+                Your GCM ID : <br/>
+                <p id="gcm_id"></p>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
+        </script>
+        <script type="text/javascript">
+            document.addEventListener("deviceready",onDeviceReady,false);
+            function onDeviceReady(){
+                console.log("Device Ready")
+                var push = PushNotification.init({ "android": {"senderID": "721393051486"},
+                "ios": {"alert": "true", "badge": "true", "sound": "true"}, "windows": {} } );
+
+                push.on('registration', function(data) {
+                console.log(data.registrationId);
+                $("#gcm_id").html(data.registrationId);
+                });
+
+                push.on('notification', function(data) {
+                console.log(data.message);
+                alert(data.title+" Message: " +data.message);
+                // data.title,
+                // data.count,
+                // data.sound,
+                // data.image,
+                // data.additionalData
+                });
+
+                push.on('error', function(e) {
+                console.log(e.message);
+                });
+            }
         </script>
     </body>
 </html>
